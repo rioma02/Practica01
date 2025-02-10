@@ -15,5 +15,6 @@ public class Main {
         String resultadoEgreso = egreso.procesarTransaccion();
         System.out.println(resultadoEgreso);
         System.out.println("Prueba Adry");
+        System.out.println("Prueba Adry2");
     }
 }
