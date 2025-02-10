@@ -1,5 +1,6 @@
 package proyecto01.practica01;
 
+
 public abstract class Transaccion {
     // atributos
     protected double monto;
@@ -16,7 +17,6 @@ public abstract class Transaccion {
     // metodos
     public abstract double calcularImpuesto();
     public abstract String procesarTransaccion();
-
     
     public double getMonto() {
         return monto;
