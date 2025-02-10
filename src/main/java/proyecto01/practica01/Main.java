@@ -14,5 +14,6 @@ public class Main {
         Transaccion egreso = new Egreso(500, "Pago de proveedores", "2025-02-09");
         String resultadoEgreso = egreso.procesarTransaccion();
         System.out.println(resultadoEgreso);
+        System.out.println("Prueba Adry");
     }
 }
