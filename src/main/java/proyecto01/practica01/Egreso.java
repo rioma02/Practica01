@@ -30,5 +30,6 @@ public class Egreso extends Transaccion {
                "Fecha: " + fecha + "\n" +
                "Gastos adicionales aplicados: " + calcularImpuesto();
     }
+
 }
 

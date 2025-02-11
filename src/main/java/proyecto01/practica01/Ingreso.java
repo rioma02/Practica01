@@ -4,6 +4,7 @@
  */
 package proyecto01.practica01;
 
+
 /**
  *
  * @author adryhd
@@ -29,5 +30,6 @@ public class Ingreso extends Transaccion {
                "Fecha: " + fecha + "\n" +
                "Impuesto aplicado: " + calcularImpuesto();
     }
+   
 }
 
