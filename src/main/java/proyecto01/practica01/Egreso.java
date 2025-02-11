@@ -18,6 +18,7 @@ public class Egreso extends Transaccion {
     public double calcularImpuesto() {
         double deduccionGastos = 0.05;
         return monto * deduccionGastos;
+
     }
 
     @Override
