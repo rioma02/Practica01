@@ -34,6 +34,7 @@ public class GestionTransacciones {
                 capital -= monto; //representa la resta al capital
             }
             transacciones.add(nuevaTransaccion);
+
             JOptionPane.showMessageDialog(null, "Transacción agregada con éxito.");
             } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un número válido para el monto.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -47,24 +48,72 @@ public class GestionTransacciones {
 
         StringBuilder lista = new StringBuilder();
         for(int i = 0; i < transacciones.size(); i++) {
-            lista.append(i + 1).append(". ").append(transacciones.get(i).toString()).append("\n");
+            Transaccion t = transacciones.get(i);
+            lista.append(i + 1).append(". ")
+                    .append("Monto: $").append(t.getMonto())
+                    .append("Fecha: ").append(t.getFecha())
+                    .append("Descripción: ").append(t.getDescripcion())
+                    .append("\n");
         }
 
         try{
-            int index = Integer.parseInt(JOptionPane.showInputDialog("Seleccione la transaccion a eliminar:\n" + lista)) -1;
-            if (index >= 0 && index < transacciones.size()){
+            String input = JOptionPane.showInputDialog(lista.toString());
+            if (input == null) return; // Si el usuario cancela, salir.
+
+            int index = Integer.parseInt(input) - 1;
+
+            if (index >= 0 && index < transacciones.size()) {
                 Transaccion t = transacciones.remove(index);
-                if (t instanceof Ingreso){
-                    capital-= t.monto;
+
+                if (t instanceof Ingreso) {
+                    capital -= t.getMonto(); // Restar el ingreso eliminado
                 } else {
-                    capital+= t.monto;
+                    capital += t.getMonto(); // Reintegrar el egreso eliminado
                 }
-                JOptionPane.showMessageDialog(null,"Transacción eliminada.");
+
+                JOptionPane.showMessageDialog(null, "Transacción eliminada con éxito.");
             } else {
                 JOptionPane.showMessageDialog(null, "Selección inválida.");
             }
-        } catch(NumberFormatException e){
-           JOptionPane.showMessageDialog(null, "Por favor ingrese un número válido.","Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void mostrarTransacciones() {
+        if (transacciones.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay transacciones registradas.");
+            return;
+        }
+
+        StringBuilder lista = new StringBuilder("lista de Transacciones \n");
+        for (Transaccion t : transacciones){
+            lista.append("Monto: $").append(t.getMonto())
+                    .append("Fecha: ").append(t.getFecha())
+                    .append("Descripción: ").append(t.getDescripcion())
+                    .append("\n");
+
+        }
+        JOptionPane.showMessageDialog(null, lista.toString(), "Transacciones", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void mostrarMenu() throws ExcepcionTransaccion {
+        String[] opciones = {"Agregar Transacción", "Eliminar Transacción","Mostrar Transacciones", "Salir"};
+        while (true) {
+            String seleccion = (String) JOptionPane.showInputDialog(null, "Seleccione una opción:", "Menu", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+            if (seleccion == null || seleccion.equals("Salir")) break;
+
+            switch (seleccion) {
+                case "Agregar Transacción":
+                    agregarTransaccion();
+                    break;
+                case "Eliminar Transacción":
+                    eliminarTransaccion();
+                    break;
+                case "Mostrar Transacción":
+                    mostrarTransacciones();
+                    break;
+            }
         }
     }
 
